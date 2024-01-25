@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+extra change 2
+>>>>>>> cb197ec13e144c518e74c59e3a4857179487fd0b
 
 Hello, I am vijay ch, attending devops class.
 
