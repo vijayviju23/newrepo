@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Check out the code from the repository
                 script {
-                    checkout scm
+                    sh 'checkout scm'
                 }
             }
         }
