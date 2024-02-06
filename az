@@ -1,0 +1,7 @@
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '8934ae31-56b5-4f04-9e1f-7864a845dbf3'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az aks install-cli
