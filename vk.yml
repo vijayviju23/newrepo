@@ -1,0 +1,28 @@
+trigger:
+  - main  # Define the branch to trigger the pipeline on
+
+pool:
+  vmImage: 'ubuntu-latest'  # Specify the agent VM image
+
+steps:
+  - script: echo Hello, world!  # Example script step
+    displayName: 'Run a one-line script'  # Display name for the step
+
+  - script: |
+      echo This is multiline script
+      echo It can run multiple commands
+    displayName: 'Run a multiline script'  # Display name for the step
+
+  - task: CopyFiles@2  # Example task to copy files
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'  # Source folder
+      Contents: '*/.txt'  # File pattern to match
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'  # Target folder
+    displayName: 'Copy files'  # Display name for the step
+
+  - task: PublishBuildArtifacts@1  # Task to publish build artifacts
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Path to artifacts
+      ArtifactName: 'my-artifact'  # Name of the artifact
+      publishLocation: 'Container'  # Specify to publish to Azure Pipelines
+    displayName: 'Publish artifacts'  # Display name for the step
