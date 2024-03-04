@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'exampleacr' # Use the name of your ACR
+    repository: 'exampledockerimage'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: '$(Build.BuildId)'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'YourAzureServiceConnection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az aks get-credentials --resource-group example-resources --name exampleaks --overwrite-existing
+
+- task: KubernetesManifest@0
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: 'YourKubernetesServiceConnection'
+    namespace: 'test'
+    manifests: '*/.yaml'
