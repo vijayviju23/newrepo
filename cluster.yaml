@@ -7,7 +7,7 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'vijaycluster' # Use the name of your ACR
+    containerRegistry: 'vijaycluster' 
     repository: 'exampledockerimage'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
