@@ -7,7 +7,7 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 'exampleacr' # Use the name of your ACR
+    containerRegistry: 'vijaycluster' # Use the name of your ACR
     repository: 'exampledockerimage'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
@@ -15,7 +15,7 @@ steps:
 
 - task: AzureCLI@2
   inputs:
-    azureSubscription: 'YourAzureServiceConnection'
+    azureSubscription: '8934ae31-56b5-4f04-9e1f-7864a845dbf3'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
