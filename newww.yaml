@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'vijaycluster' 
+    repository: 'exampledockerimage'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: '$(Build.BuildId)'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '8934ae31-56b5-4f04-9e1f-7864a845dbf3'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az aks get-credentials --resource-group example-resources --name exampleaks --overwrite-existing
+
+- task: KubernetesManifest@0
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: 'YourKubernetesServiceConnection'
+    namespace: 'test'
+    manifests: '*/.yaml'
